@@ -1,7 +1,11 @@
 package com.example.estacioney;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +50,7 @@ public class GetDataActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 TextView tvWebData = findViewById(R.id.tvWebData);
                                 tvWebData.setText(webData);
                             }
