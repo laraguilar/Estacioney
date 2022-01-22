@@ -1,7 +1,5 @@
 package com.example.estacioney;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,21 +8,19 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MainViewModel  extends ViewModel {
-    final String login = Config.getLogin(MainViewModel.this);
+public class GetDataViewModel extends ViewModel {
+    String login = Config.getLogin(GetDataViewModel.this);
     MutableLiveData<List<ListaEstac>> listaEstacs;
 
     public LiveData<List<ListaEstac>> getListaEstacs(){
-        if (listaEstacs == null){
+        if(listaEstacs == null){
             listaEstacs = new MutableLiveData<List<ListaEstac>>();
             loadListaEstac();
         }
-
         return listaEstacs;
-
     }
 
-    private void loadListaEstac() {
+    void loadListaEstac(){
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override

@@ -1,4 +1,4 @@
-package com.example.estacioney;
+package com.example.estacioney.adapter;
 
 import android.view.View;
 

@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 EditText etPassword = findViewById(R.id.etPassword);
                 final String password = etPassword.getText().toString();
-
 
 
                 ExecutorService executorService = Executors.newSingleThreadExecutor();

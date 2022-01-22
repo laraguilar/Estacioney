@@ -1,4 +1,4 @@
-package com.example.estacioney;
+package com.example.estacioney.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.estacioney.ListaEstac;
+import com.example.estacioney.R;
 
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, ListaEstac.class);
+                Intent i = new Intent(context, ListaEstac.class); // isso nao deveria ser uma classe que extende AppCompatActivity???
                 i.putExtra("nomEstac", listaEstac.getNomEstac());
                 context.startActivity(i);
             }
