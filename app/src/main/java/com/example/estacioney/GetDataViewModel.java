@@ -1,31 +1,90 @@
 package com.example.estacioney;
 
+import android.app.Application;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class GetDataViewModel extends ViewModel {
-    String login = Config.getLogin(GetDataViewModel.this);
-    MutableLiveData<List<ListaEstac>> listaEstacs;
+public class GetDataViewModel extends AndroidViewModel {
+    MutableLiveData <List<Estacionamento>> listaEstacs;
 
-    public LiveData<List<ListaEstac>> getListaEstacs(){
+    public GetDataViewModel(@NonNull Application application) {
+        super(application);
+    }
+
+    public LiveData<List<Estacionamento>> getListaEstacs(){
         if(listaEstacs == null){
-            listaEstacs = new MutableLiveData<List<ListaEstac>>();
+            listaEstacs = new MutableLiveData<List<Estacionamento>>();
             loadListaEstac();
         }
         return listaEstacs;
     }
 
+    public void refreshEstacs(){
+        loadListaEstac();
+    }
+
     void loadListaEstac(){
+        final String login = Config.getLogin(getApplication());
+        final String password = Config.getPassword(getApplication());
+
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "get_data.php", "GET", "UTF-8");
+                List<Estacionamento> estacList = new ArrayList<>();
+
+                HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "listEstac.php", "GET", "UTF-8");
+                httpRequest.setBasicAuth(login, password);
+                try {
+                    InputStream is = httpRequest.execute();
+                    String result = Util.inputStream2String(is, "UTF-8");
+                    httpRequest.finish();
+
+                    Log.d("HTTP_REQUEST_RESULT", result);
+
+                    JSONObject jsonObject = new JSONObject(result);
+                    final int success = jsonObject.getInt("success");
+
+                    if(success == 1) {
+                        JSONArray jsonArray =  jsonObject.getJSONArray("estacionamentos");
+
+
+
+                        for (int i = 0; i<jsonArray.length(); i++){
+                            JSONObject jEstac = jsonArray.getJSONObject(i);
+
+                            String idEstac = jEstac.getString("idEstac");
+                            String nomEstac = jEstac.getString("nomEstac");
+                            //String logr = jEstac.getString("dscLogradouro");
+                            //String cep = jEstac.getString("cep");
+
+                            // cria um produto
+                            Estacionamento estacionamento = new Estacionamento(idEstac, nomEstac);
+
+                            // adiciona o estacionamento na lista
+                            estacList.add(estacionamento);
+
+                        }
+                        listaEstacs.postValue(estacList); // seta a nova lista de estacionamentos
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

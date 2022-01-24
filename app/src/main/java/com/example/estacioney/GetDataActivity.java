@@ -1,5 +1,10 @@
 package com.example.estacioney;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -7,25 +12,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.estacioney.adapter.MyAdapter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
+import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class GetDataActivity extends AppCompatActivity {
+    private Duration ViewModelProviders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,59 +30,21 @@ public class GetDataActivity extends AppCompatActivity {
 
         RecyclerView rvListEstac = findViewById(R.id.rvListEstac);
         rvListEstac.setHasFixedSize(true);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvListEstac.setLayoutManager(layoutManager);
 
         GetDataViewModel getDataViewModel = new ViewModelProvider(this).get(GetDataViewModel.class);
-        LiveData<List<ListaEstac>> listEstacs = getDataViewModel.getListaEstacs();
-        listEstacs.observe(this, new Observer<List<ListaEstac>>() {
+        LiveData<List<Estacionamento>> listEstacs = getDataViewModel.getListaEstacs();
+        listEstacs.observe(this, new Observer<List<Estacionamento>>() {
             @Override
-            public void onChanged(List<ListaEstac> listaEstacs) {
-                MyAdapter myAdapter = new MyAdapter(GetDataActivity.this, listaEstacs);
+            public void onChanged(List<Estacionamento> listEstacs) {
+                MyAdapter myAdapter = new MyAdapter(GetDataActivity.this, listEstacs);
                 rvListEstac.setAdapter(myAdapter);
             }
         });
 
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "get_data.php", "GET", "UTF-8");
-                httpRequest.setBasicAuth(login, password);
-
-                try {
-                    InputStream is = httpRequest.execute();
-                    String result = Util.inputStream2String(is, "UTF-8");
-                    httpRequest.finish();
-
-                    JSONObject jsonObject = new JSONObject(result);
-                    final int success = jsonObject.getInt("success");
-                    if(success == 1) {
-                        final String webData = jsonObject.getString("data");
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                TextView tvWebData = findViewById(R.id.tvWebData);
-                                tvWebData.setText(webData);
-                            }
-                        });
-
-                    }
-                    else {
-                        final String error = jsonObject.getString("error");
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(GetDataActivity.this, error, Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        getDataViewModel.refreshEstacs();
 
         Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -101,5 +56,7 @@ public class GetDataActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
     }
+
 }
