@@ -1,13 +1,21 @@
 package com.example.estacioney;
 
 public class Estacionamento {
-
     String idEstac;
     String nomEstac;
+    String qtdVagas;
+    String valFixo;
+    String valAcresc;
     String logr;
     String cep;
 
-
+    public Estacionamento(String idEstac, String nomEstac, String qtdVagas, String valFixo, String valAcresc) {
+        this.idEstac = idEstac;
+        this.nomEstac = nomEstac;
+        this.qtdVagas = qtdVagas;
+        this.valFixo = valFixo;
+        this.valAcresc = valAcresc;
+    }
 
     public Estacionamento(String idEstac, String nomEstac, String logr, String cep) {
         this.idEstac = idEstac;
@@ -53,7 +61,29 @@ public class Estacionamento {
         this.cep = cep;
     }
 
+    public String getQtdVagas() {
+        return qtdVagas;
+    }
 
+    public void setQtdVagas(String qtdVagas) {
+        this.qtdVagas = qtdVagas;
+    }
+
+    public String getValFixo() {
+        return valFixo;
+    }
+
+    public void setValFixo(String valFixo) {
+        this.valFixo = valFixo;
+    }
+
+    public String getValAcresc() {
+        return valAcresc;
+    }
+
+    public void setValAcresc(String valAcresc) {
+        this.valAcresc = valAcresc;
+    }
 
 
 

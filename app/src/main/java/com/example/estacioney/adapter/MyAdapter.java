@@ -49,7 +49,7 @@ public class MyAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, EstacActivity.class);
-                i.putExtra("idEstac", listaEstac.getNomEstac());
+                i.putExtra("idEstac", listaEstac.getIdEstac());
                 context.startActivity(i);
             }
         });

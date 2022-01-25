@@ -70,11 +70,15 @@ public class ListaEstacViewModel extends AndroidViewModel {
 
                             String idEstac = jEstac.getString("idEstac");
                             String nomEstac = jEstac.getString("nomEstac");
+                            String qtdVagas = jEstac.getString("qtdVagas");
+                            String valFixo = jEstac.getString("valFixo");
+                            String valAcresc = jEstac.getString("valAcresc");
+
                             //String logr = jEstac.getString("dscLogradouro");
                             //String cep = jEstac.getString("cep");
 
                             // cria um produto
-                            Estacionamento estacionamento = new Estacionamento(idEstac, nomEstac);
+                            Estacionamento estacionamento = new Estacionamento(idEstac, nomEstac, qtdVagas, valFixo, valAcresc);
 
                             // adiciona o estacionamento na lista
                             estacList.add(estacionamento);
