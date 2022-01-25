@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Downloads/Estacioney (1)/Estacioney/app/src/main/res/layout/activity_cad_estac.xml" value="0.36666666666666664" />
+        <entry key="..\:/Downloads/Estacioney (1)/Estacioney/app/src/main/res/layout/activity_estac.xml" value="0.36666666666666664" />
         <entry key="..\:/Downloads/Estacioney (1)/Estacioney/app/src/main/res/layout/activity_get_data.xml" value="0.25416666666666665" />
         <entry key="..\:/Downloads/Estacioney (1)/Estacioney/app/src/main/res/layout/activity_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Downloads/Estacioney (1)/Estacioney/app/src/main/res/layout/activity_login.xml" value="0.13020833333333334" />
@@ -10,6 +12,7 @@
         <entry key="..\:/Downloads/Estacioney (1)/Estacioney/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
         <entry key="..\:/Downloads/Estacioney (1)/Estacioney/app/src/main/res/layout/estacionamento.xml" value="0.264" />
         <entry key="..\:/Downloads/Estacioney (1)/Estacioney/app/src/main/res/layout/item_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Downloads/Estacioney (1)/Estacioney/app/src/main/res/layout/item_list_estacionamento.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

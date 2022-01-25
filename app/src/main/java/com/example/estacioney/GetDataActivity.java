@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.estacioney.adapter.MyAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.Duration;
 import java.util.List;
@@ -54,6 +55,15 @@ public class GetDataActivity extends AppCompatActivity {
                 Config.setPassword(GetDataActivity.this, "");
                 Intent i = new Intent(GetDataActivity.this, LoginActivity.class);
                 startActivity(i);
+            }
+        });
+
+        FloatingActionButton btnAddEstac = findViewById(R.id.btnAddEstac);
+        btnAddEstac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(GetDataActivity.this, CadEstacActivity.class);
+                startActivity(a);
             }
         });
 
