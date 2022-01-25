@@ -19,7 +19,7 @@
             android:exported="false" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".GetDataActivity" />
+        <activity android:name=".ListaEstacActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="True"

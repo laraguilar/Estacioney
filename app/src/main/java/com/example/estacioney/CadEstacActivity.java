@@ -121,7 +121,8 @@ public class CadEstacActivity extends AppCompatActivity {
                         httpRequest.addParam("estado", estado);
 
                         try {
-                            InputStream is = httpRequest.execute();
+                            InputStream is;
+                            is = httpRequest.execute();
                             String result = Util.inputStream2String(is, "UTF-8");
                             httpRequest.finish();
 
@@ -132,7 +133,7 @@ public class CadEstacActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         // codigo
-                                        Intent i = new Intent(CadEstacActivity.this, GetDataActivity.class);
+                                        Intent i = new Intent(CadEstacActivity.this, ListaEstacActivity.class);
                                         startActivity(i);
                                     }
                                 });
@@ -144,7 +145,6 @@ public class CadEstacActivity extends AppCompatActivity {
                                     public void run() {
                                         Toast.makeText(CadEstacActivity.this, error, Toast.LENGTH_LONG).show();
                                     }
-
                                 });
                             }
                         } catch (IOException | JSONException e) {

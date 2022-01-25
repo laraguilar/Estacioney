@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class GetDataViewModel extends AndroidViewModel {
+public class ListaEstacViewModel extends AndroidViewModel {
     MutableLiveData <List<Estacionamento>> listaEstacs;
 
-    public GetDataViewModel(@NonNull Application application) {
+    public ListaEstacViewModel(@NonNull Application application) {
         super(application);
     }
 
