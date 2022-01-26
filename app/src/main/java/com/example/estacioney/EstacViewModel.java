@@ -21,7 +21,6 @@ import java.util.concurrent.Executors;
 
 public class EstacViewModel extends AndroidViewModel {
     MutableLiveData<Estacionamento> estacionamento;
-    String idEstac;
 
     public EstacViewModel(@NonNull Application application) {
         super(application);
@@ -49,9 +48,11 @@ public class EstacViewModel extends AndroidViewModel {
             public void run() {
                 HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "estacHome.php", "POST", "UTF-8");
                 httpRequest.setBasicAuth(login, password);
+                String idEstac = Config.getIdEstac(getApplication());
                 httpRequest.addParam("idEstac", idEstac);
+
                 try {
-                    InputStream is = httpRequest.execute();
+                    InputStream is = httpRequest.execute(); // morre aqui
                     String result = Util.inputStream2String(is, "UTF-8");
                     httpRequest.finish();
 
@@ -68,8 +69,11 @@ public class EstacViewModel extends AndroidViewModel {
                         String qtdVagas = jProduct.getString("qtdVagas");
                         String valFixo = jProduct.getString("valFixo");
                         String valAcresc = jProduct.getString("valAcresc");
+                        String vagasDisp = jProduct.getString("vagasDisp");
 
-                        Estacionamento e = new Estacionamento(nomEstac, qtdVagas, valFixo, valAcresc);
+
+
+                        Estacionamento e = new Estacionamento(idEstac, nomEstac, qtdVagas, valFixo, valAcresc, vagasDisp);
 
                         estacionamento.postValue(e);
 

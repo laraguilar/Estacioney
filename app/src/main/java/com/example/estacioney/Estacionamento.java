@@ -6,8 +6,19 @@ public class Estacionamento {
     String qtdVagas;
     String valFixo;
     String valAcresc;
+    String vagasDisp;
     String logr;
     String cep;
+
+
+    public Estacionamento(String idEstac, String nomEstac, String qtdVagas, String valFixo, String valAcresc, String vagasDisp) {
+        this.idEstac = idEstac;
+        this.nomEstac = nomEstac;
+        this.qtdVagas = qtdVagas;
+        this.valFixo = valFixo;
+        this.valAcresc = valAcresc;
+        this.vagasDisp = vagasDisp;
+    }
 
     public Estacionamento(String idEstac, String nomEstac, String qtdVagas, String valFixo, String valAcresc) {
         this.idEstac = idEstac;
@@ -85,6 +96,13 @@ public class Estacionamento {
         this.valAcresc = valAcresc;
     }
 
+    public String getVagasDisp() {
+        return vagasDisp;
+    }
+
+    public void setVagasDisp(String vagasDisp) {
+        this.vagasDisp = vagasDisp;
+    }
 
 
 

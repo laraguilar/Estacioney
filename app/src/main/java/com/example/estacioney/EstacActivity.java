@@ -21,12 +21,9 @@ public class EstacActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estac);
 
-        Intent i = getIntent();
-        idEstac = i.getStringExtra("idEstac");
-
         EstacViewModel estacViewModel = new ViewModelProvider(this).get(EstacViewModel.class);
         LiveData<Estacionamento> estacs = estacViewModel.getEstacionamento();
-        estacs.observe(this, new Observer<Estacionamento>() {
+        estacs.observe(this, new Observer<Estacionamento>() { // o erro esta aqui, nao consegue pegar o id do estacionamento na viewmodel
             @Override
             public void onChanged(Estacionamento estacs) {
                 TextView tvValFixo = findViewById(R.id.tvValFixo1);
@@ -34,6 +31,9 @@ public class EstacActivity extends AppCompatActivity {
 
                 TextView tvValAcresc = findViewById(R.id.tvAcrescHr1);
                 tvValAcresc.setText(estacs.getValAcresc());
+
+                TextView tvDisp = findViewById(R.id.tvDisp);
+                tvDisp.setText(estacs.getVagasDisp());
 
             }
         });

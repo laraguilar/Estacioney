@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.estacioney.Config;
 import com.example.estacioney.EstacActivity;
 import com.example.estacioney.Estacionamento;
 import com.example.estacioney.ListaEstac;
@@ -41,18 +42,19 @@ public class MyAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Estacionamento listaEstac = this.listaEstacs.get(position);
-
         TextView tvNomEstac = holder.itemView.findViewById(R.id.tvNomEstac);
         tvNomEstac.setText(listaEstac.getNomEstac());
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, EstacActivity.class);
-                i.putExtra("idEstac", listaEstac.getIdEstac());
+                final String idEstac = listaEstac.getIdEstac();
+                Config.setIdEstac(context, idEstac);
                 context.startActivity(i);
             }
         });
+
+
     }
 
     @Override

@@ -20,7 +20,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvValFixo2" />
+            app:layout_constraintTop_toBottomOf="@+id/tvDisp" />
 
         <ImageButton
             android:id="@+id/imageButton4"
@@ -35,10 +35,12 @@
         <TextView
             android:id="@+id/tvValFixo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="Valor Fixo"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageButton4"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,6 +51,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Acréscimo/hora"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageButton4"
             app:layout_constraintTop_toBottomOf="@+id/tvValFixo" />
 
@@ -60,6 +64,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:textAlignment="textEnd"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvValFixo"
             app:layout_constraintTop_toTopOf="parent" />
@@ -72,20 +77,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:textAlignment="textEnd"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvAcrescHr"
             app:layout_constraintTop_toBottomOf="@+id/tvValFixo1" />
-
-        <TextView
-            android:id="@+id/tvValFixo2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Disponibilidade: 27/30"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_add_cliente"
@@ -109,6 +104,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider6" />
+
+        <TextView
+            android:id="@+id/tvDisp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAcrescHr1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
