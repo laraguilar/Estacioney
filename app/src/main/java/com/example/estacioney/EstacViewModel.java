@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +35,10 @@ public class EstacViewModel extends AndroidViewModel {
         return estacionamento;
     }
 
+    void refreshEstacionamento(){
+        loadEstacionamento();
+    }
+
     void loadEstacionamento(){
         final String login = Config.getLogin(getApplication());
         final String password = Config.getPassword(getApplication());
@@ -55,17 +61,17 @@ public class EstacViewModel extends AndroidViewModel {
                     int success = jsonObject.getInt("success");
 
                     if(success == 1) {
-                        JSONArray jsonArray =  jsonObject.getJSONArray(("product"));
+                        JSONArray jsonArray =  jsonObject.getJSONArray("dadosEstac");
                         JSONObject jProduct = jsonArray.getJSONObject(0);
 
-                        String pid = jProduct.getString("pid");
-                        String name = jProduct.getString("name");
-                        String price = jProduct.getString("price");
-                        String description = jProduct.getString("description");
+                        String nomEstac = jProduct.getString("nomEstac");
+                        String qtdVagas = jProduct.getString("qtdVagas");
+                        String valFixo = jProduct.getString("valFixo");
+                        String valAcresc = jProduct.getString("valAcresc");
 
-                        //Product p = new Product(pid, name, price, description);
+                        Estacionamento e = new Estacionamento(nomEstac, qtdVagas, valFixo, valAcresc);
 
-                        //product.postValue(p);
+                        estacionamento.postValue(e);
 
                     }
                 } catch (IOException | JSONException e) {
