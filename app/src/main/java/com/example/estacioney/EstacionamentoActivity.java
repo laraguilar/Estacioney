@@ -21,7 +21,10 @@ public class EstacionamentoActivity extends AppCompatActivity {
         final String login = Config.getLogin(EstacionamentoActivity.this);
         final String password = Config.getPassword(EstacionamentoActivity.this);
 
-        EstacionamentoViewModel estacionamentoViewModel = new ViewModelProvider(this).get(EstacionamentoViewModel.class);
+        Intent i = getIntent();
+        String idEstac = i.getStringExtra("idEstac");
+
+        EstacionamentoViewModel estacionamentoViewModel = new ViewModelProvider(this, new EstacionamentoViewModel.EstacionamentoViewModelFactory(getApplication(), idEstac)).get(EstacionamentoViewModel.class);
         LiveData<Estacionamento> estacs = estacionamentoViewModel.getEstacionamento();
         estacs.observe(this, new Observer<Estacionamento>() {
             @Override

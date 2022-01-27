@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,9 +21,11 @@ import java.util.concurrent.Executors;
 
 public class EstacionamentoViewModel extends AndroidViewModel {
     MutableLiveData<Estacionamento> estacionamento;
+    String idEstac;
 
-    public EstacionamentoViewModel(@NonNull Application application) {
+    public EstacionamentoViewModel(@NonNull Application application, String idEstac) {
         super(application);
+        this.idEstac = idEstac;
     }
 
     public LiveData<Estacionamento> getEstacionamento(){
@@ -40,13 +44,14 @@ public class EstacionamentoViewModel extends AndroidViewModel {
         final String login = Config.getLogin(getApplication());
         final String password = Config.getPassword(getApplication());
 
+
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
                 HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "estac.php", "POST", "UTF-8");
                 httpRequest.setBasicAuth(login, password);
-                String idEstac = Config.getIdEstac(getApplication());
+                //String idEstac = Config.getIdEstac(getApplication());
                 httpRequest.addParam("idEstac", idEstac);
 
                 try {
@@ -85,5 +90,22 @@ public class EstacionamentoViewModel extends AndroidViewModel {
                 }
             }
         });
+    }
+
+    // obriga a passar parametros no construtor do view model
+    static public class EstacionamentoViewModelFactory implements ViewModelProvider.Factory{
+        String idEstac;
+        Application application;
+
+        public EstacionamentoViewModelFactory(Application application, String idEstac) {
+            this.idEstac = idEstac;
+            this.application = application;
+        }
+
+        @NonNull
+        @Override
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new EstacionamentoViewModel(application, idEstac);
+        }
     }
 }

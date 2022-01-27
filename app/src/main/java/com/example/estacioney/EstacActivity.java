@@ -71,6 +71,7 @@ public class EstacActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(EstacActivity.this, EstacionamentoActivity.class);
+                i.putExtra("idEstac", idEstac);
                 startActivity(i);
             }
         });
