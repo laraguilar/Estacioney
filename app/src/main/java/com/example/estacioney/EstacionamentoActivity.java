@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class EstacionamentoActivity extends AppCompatActivity {
 
     @Override
@@ -28,16 +26,16 @@ public class EstacionamentoActivity extends AppCompatActivity {
         estacs.observe(this, new Observer<Estacionamento>() {
             @Override
             public void onChanged(Estacionamento estacs) {
-                TextView tvnomEstac = findViewById(R.id.tvNomEstacE);
+                TextView tvnomEstac = findViewById(R.id.tvNomEmpr);
                 tvnomEstac.setText(estacs.getNomEstac());
 
-                TextView tvQtdVagas = findViewById(R.id.tvQtdVagas);
+                TextView tvQtdVagas = findViewById(R.id.tvEmail);
                 tvQtdVagas.setText(estacs.getQtdVagas());
 
-                TextView tvValFixo = findViewById(R.id.tvValFixo2);
+                TextView tvValFixo = findViewById(R.id.tvCnpj);
                 tvValFixo.setText(estacs.getValFixo());
 
-                TextView tvValAcresc = findViewById(R.id.tvValAcresc);
+                TextView tvValAcresc = findViewById(R.id.tvTel);
                 tvValAcresc.setText(estacs.getValAcresc());
 
                 String end = estacs.getCep() + "\n" + estacs.getLogr() + ", " + estacs.getNum() + "\n" + estacs.getBairro()

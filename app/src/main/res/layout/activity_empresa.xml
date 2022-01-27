@@ -6,34 +6,36 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvValAcresc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="(27)1234-5678"
-        app:layout_constraintStart_toEndOf="@+id/textView50"
-        app:layout_constraintTop_toBottomOf="@+id/tvValFixo2" />
-
-    <TextView
-        android:id="@+id/tvValFixo2"
+        android:id="@+id/tvCnpj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="11.222.333/0001-66"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView49"
-        app:layout_constraintTop_toBottomOf="@+id/tvQtdVagas" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
     <TextView
-        android:id="@+id/tvQtdVagas"
+        android:id="@+id/tvTel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textView50"
+        app:layout_constraintTop_toBottomOf="@+id/tvCnpj" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
         android:layout_marginTop="24dp"
-        android:text="nomeempresa@email.com"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintStart_toEndOf="@+id/textView48"
-        app:layout_constraintTop_toBottomOf="@+id/tvNomEstacE" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNomEmpr" />
 
     <TextView
         android:id="@+id/textView50"
@@ -42,6 +44,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Telefone"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView49" />
@@ -53,6 +56,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="CPF/CNPJ"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView48" />
@@ -68,14 +72,15 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvNomEstacE"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvNomEmpr"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="147dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="148dp"
-        android:text="Nome da Empresa"
-        android:textSize="20sp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/secondary_text_light"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,8 +93,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="E-mail"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNomEstacE" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNomEmpr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
