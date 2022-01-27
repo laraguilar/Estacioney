@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -79,10 +80,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button btnRegisterNewUser = findViewById(R.id.btnRegisterNewUser);
-        btnRegisterNewUser.setOnClickListener(new View.OnClickListener() {
+        TextView cadastrar = findViewById(R.id.cadastrar);
+        cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(i);
             }

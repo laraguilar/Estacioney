@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.estacioney.adapter.AlocaMyAdapter;
 import com.example.estacioney.adapter.MyAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -71,6 +72,16 @@ public class EstacActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(EstacActivity.this, EstacionamentoActivity.class);
                 startActivity(i);
+            }
+        });
+
+        FloatingActionButton btnAddCar = findViewById(R.id.btn_add_cliente);
+        btnAddCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent j = new Intent(EstacActivity.this, EntradaActivity.class);
+                j.putExtra("idEstac", idEstac);
+                startActivity(j);
             }
         });
 
