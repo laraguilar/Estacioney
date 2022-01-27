@@ -10,52 +10,61 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.estacioney.Config;
+import com.example.estacioney.Alocado;
+import com.example.estacioney.EmpresaActivity;
 import com.example.estacioney.EstacActivity;
 import com.example.estacioney.Estacionamento;
-import com.example.estacioney.ListaEstac;
 import com.example.estacioney.R;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter {
-
+public class AlocaMyAdapter extends RecyclerView.Adapter {
     Context context;
-    List<Estacionamento> listaEstacs;
+    List<Alocado> listaAlocado;
 
-    public MyAdapter(Context context, List<Estacionamento> listaEstacs) {
+    public AlocaMyAdapter(Context context, List<Alocado> listaAlocado) {
         this.context = context;
-        this.listaEstacs = listaEstacs;
+        this.listaAlocado = listaAlocado;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.item_list_estacionamento, parent, false);
+        View v = inflater.inflate(R.layout.item_alocado, parent, false);
         MyViewHolder viewHolder = new MyViewHolder(v);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Estacionamento listaEstac = this.listaEstacs.get(position);
-        TextView tvNomEstac = holder.itemView.findViewById(R.id.tvNomEstac);
-        tvNomEstac.setText(listaEstac.getNomEstac());
+        Alocado listaAlocado = this.listaAlocado.get(position);
+
+        TextView tvCliente = holder.itemView.findViewById(R.id.tvNomCliente);
+        tvCliente.setText(listaAlocado.getNomCliente());
+
+        TextView tvVaga = holder.itemView.findViewById(R.id.tvVaga);
+        tvVaga.setText(listaAlocado.getIdVaga());
+
+        TextView tvHrEntrada = holder.itemView.findViewById(R.id.tvHrEntrada);
+        tvHrEntrada.setText(listaAlocado.getHrEntrada());
+
+        TextView tvPlaca = holder.itemView.findViewById(R.id.tvPlaca);
+        tvPlaca.setText(listaAlocado.getDscPlaca());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, EstacActivity.class);
-                i.putExtra("idEstac", listaEstac.getIdEstac());
+                Intent i = new Intent(context, EmpresaActivity.class); // colocar para ir pra activity ver vaga
+                i.putExtra("idAlocado", listaAlocado.getIdAlocado());
                 context.startActivity(i);
             }
         });
-
 
     }
 
     @Override
     public int getItemCount() {
-        return this.listaEstacs.size();
+        return this.listaAlocado.size();
     }
 }

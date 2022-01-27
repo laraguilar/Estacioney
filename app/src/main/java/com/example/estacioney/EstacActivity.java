@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.estacioney.adapter.AlocaMyAdapter;
 import com.example.estacioney.adapter.MyAdapter;
 
 import java.util.List;
@@ -26,7 +27,11 @@ public class EstacActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estac);
 
-        EstacViewModel estacViewModel = new ViewModelProvider(this).get(EstacViewModel.class);
+        Intent i = getIntent();
+        idEstac = i.getStringExtra("idEstac");
+
+
+        EstacViewModel estacViewModel = new ViewModelProvider(this, new EstacViewModel.EstacViewModelFactory(getApplication(), idEstac)).get(EstacViewModel.class);
         LiveData<Estacionamento> estacs = estacViewModel.getEstacionamento();
         estacs.observe(this, new Observer<Estacionamento>() {
             @Override
@@ -39,9 +44,26 @@ public class EstacActivity extends AppCompatActivity {
 
                 TextView tvDisp = findViewById(R.id.tvDisp);
                 tvDisp.setText(estacs.getVagasDisp());
-
             }
         });
+
+
+        RecyclerView rvAlocados = findViewById(R.id.rvAlocados);
+        rvAlocados.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        rvAlocados.setLayoutManager(layoutManager);
+
+        LiveData<List<Alocado>> listAlocados = estacViewModel.getAlocado();
+        listAlocados.observe(this, new Observer<List<Alocado>>() {
+            @Override
+            public void onChanged(List<Alocado> alocados) {
+                AlocaMyAdapter alocaMyAdapter = new AlocaMyAdapter(EstacActivity.this, alocados);
+                rvAlocados.setAdapter(alocaMyAdapter);
+            }
+        });
+        estacViewModel.refreshAlocados();
+
 
         ImageButton btnEmp = findViewById(R.id.btnEmp);
         btnEmp.setOnClickListener(new View.OnClickListener() {

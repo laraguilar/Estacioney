@@ -16,14 +16,19 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class EstacViewModel extends AndroidViewModel {
     MutableLiveData<Estacionamento> estacionamento;
+    MutableLiveData<List<Alocado>> listAlocado;
+    String idEstac;
 
-    public EstacViewModel(@NonNull Application application) {
+    public EstacViewModel(@NonNull Application application, String idEstac) {
         super(application);
+        this.idEstac = idEstac;
     }
 
     public LiveData<Estacionamento> getEstacionamento(){
@@ -34,13 +39,22 @@ public class EstacViewModel extends AndroidViewModel {
         return estacionamento;
     }
 
-    void refreshEstacionamento(){
-        loadEstacionamento();
+    public LiveData<List<Alocado>> getAlocado(){
+        if(this.listAlocado == null){
+            listAlocado = new MutableLiveData<List<Alocado>>();
+            loadAlocado();
+        }
+        return listAlocado;
+    }
+
+    void refreshAlocados(){
+        loadAlocado();
     }
 
     void loadEstacionamento(){
         final String login = Config.getLogin(getApplication());
         final String password = Config.getPassword(getApplication());
+        //String idEstac = Config.getIdEstac(getApplication());
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
@@ -48,7 +62,6 @@ public class EstacViewModel extends AndroidViewModel {
             public void run() {
                 HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "estacHome.php", "POST", "UTF-8");
                 httpRequest.setBasicAuth(login, password);
-                String idEstac = Config.getIdEstac(getApplication());
                 httpRequest.addParam("idEstac", idEstac);
 
                 try {
@@ -71,9 +84,9 @@ public class EstacViewModel extends AndroidViewModel {
                         String valAcresc = jProduct.getString("valAcresc");
                         String vagasDisp = jProduct.getString("vagasDisp");
 
-
-
                         Estacionamento e = new Estacionamento(idEstac, nomEstac, qtdVagas, valFixo, valAcresc, vagasDisp);
+
+
 
                         estacionamento.postValue(e);
 
@@ -83,6 +96,77 @@ public class EstacViewModel extends AndroidViewModel {
                 }
             }
         });
+    }
+
+    void loadAlocado() {
+        final String login = Config.getLogin(getApplication());
+        final String password = Config.getPassword(getApplication());
+        //String idEstac = Config.getIdEstac(getApplication());
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Alocado> alocaList = new ArrayList<>();
+
+                HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "listAlocados.php", "POST", "UTF-8");
+                httpRequest.setBasicAuth(login, password);
+                httpRequest.addParam("idEstac", idEstac);
+
+                try {
+                    InputStream is = httpRequest.execute(); // morre aqui
+                    String result = Util.inputStream2String(is, "UTF-8");
+                    httpRequest.finish();
+
+                    Log.d("HTTP_REQUEST_RESULT", result);
+
+                    JSONObject jsonObject = new JSONObject(result);
+                    int success = jsonObject.getInt("success");
+
+                    if (success == 1) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("alocados");
+
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jEstac = jsonArray.getJSONObject(i);
+
+                            String idAloca = jEstac.getString("idAloca");
+                            String idVaga = jEstac.getString("idVaga");
+                            String nomCliente = jEstac.getString("nomCliente");
+                            String cpfCliente = jEstac.getString("cpfCliente");
+                            String hrEntrada = jEstac.getString("hrEntrada");
+                            String dscPlaca = jEstac.getString("dscPlaca");
+
+                            // cria um produto
+                            Alocado alocado = new Alocado(idAloca, idVaga, nomCliente, cpfCliente, hrEntrada, dscPlaca);
+
+                            alocaList.add(alocado);
+                        }
+
+                        listAlocado.postValue(alocaList);
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    // obriga a passar parametros no construtor do view model
+    static public class EstacViewModelFactory implements ViewModelProvider.Factory{
+        String idEstac;
+        Application application;
+
+        public EstacViewModelFactory(Application application, String idEstac) {
+            this.idEstac = idEstac;
+            this.application = application;
+        }
+
+        @NonNull
+        @Override
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new EstacViewModel(application, idEstac);
+        }
     }
 
 }
