@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Estacioney">
         <activity
+            android:name=".EstacionamentoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmpresaActivity"
+            android:exported="false" />
+        <activity
             android:name=".CadEstacActivity"
             android:exported="false" />
         <activity
