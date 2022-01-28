@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.estacioney.Alocado;
+import com.example.estacioney.DadosVagaActivity;
 import com.example.estacioney.EmpresaActivity;
 import com.example.estacioney.EstacActivity;
 import com.example.estacioney.Estacionamento;
@@ -55,8 +56,11 @@ public class AlocaMyAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, EmpresaActivity.class); // colocar para ir pra activity ver vaga
+                Intent i = new Intent(context, DadosVagaActivity.class); // colocar para ir pra activity ver vaga
                 i.putExtra("idAlocado", listaAlocado.getIdAlocado());
+                i.putExtra("nomCliente", listaAlocado.getNomCliente());
+                i.putExtra("hrEntrada", listaAlocado.getHrEntrada());
+                i.putExtra("placa", listaAlocado.getDscPlaca());
                 context.startActivity(i);
             }
         });

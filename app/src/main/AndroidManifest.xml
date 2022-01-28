@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Estacioney">
         <activity
+            android:name=".DadosVagaActivity"
+            android:exported="false" />
+        <activity
             android:name=".EntradaActivity"
             android:exported="false" />
         <activity
