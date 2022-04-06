@@ -10,3 +10,5 @@ O Banco de Dados utilizado é o MySQL e está hospedado no heroku.<br>
 Acessando o link https://testestacioney.herokuapp.com/code/index.php é possível ter acesso ao site desenvolvido até agora, sem precisar fazer instalações na máquina.
 [Repositório do sistema web](https://github.com/laraguilar/estacioney-web)
 
+## Execução do aplicativo
+- Abrir o repositório no Android Studio e rodar a aplicação
